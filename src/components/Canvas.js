@@ -6,7 +6,7 @@ class Canvas {
     this.board = [];
   }
 
-  getCellValue = (colIndex, rowIndex, w, h) => {
+  getCellValue(rowIndex, colIndex, w, h) {
     const result =
       rowIndex === 0 || rowIndex === h - 1
         ? "-"
@@ -22,7 +22,7 @@ class Canvas {
       result
     );
     return result;
-  };
+  }
 
   createBoard = (w, h) => {
     if (!w || !h) return;
@@ -31,11 +31,11 @@ class Canvas {
     const borderedWidth = w + 2;
     const borderedHeight = h + 2;
 
-    this.board = new Array(borderedWidth).fill(null).map((col, colIndex) =>
-      new Array(borderedHeight).fill(null).map((row, rowIndex) => ({
+    this.board = new Array(borderedHeight).fill(null).map((row, rowIndex) =>
+      new Array(borderedWidth).fill(null).map((col, colIndex) => ({
         value: this.getCellValue(
-          colIndex,
           rowIndex,
+          colIndex,
           borderedWidth,
           borderedHeight
         ),
@@ -59,7 +59,7 @@ class Canvas {
     // const size = await input(
     //   'Welcome, please enter size to create your canvas: '
     // );
-    const size = "C 3 2";
+    const size = "C 5 2";
     console.log("\n");
 
     const [commandType, width, height] = (size && size.split(" ")) || [];
