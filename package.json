@@ -1,0 +1,17 @@
+{
+  "name": "paint-app",
+  "version": "0.0.1",
+  "description": "Credit Suisse paint app exercise",
+  "main": "./src/components/App.js",
+  "scripts": {
+    "game": "node index.js",
+    "test": "jest --watch",
+    "test:All": "jest --watchAll"
+  },
+  "keywords": [],
+  "author": "Gaurav Sharma",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
