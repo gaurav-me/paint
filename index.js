@@ -1,3 +1,3 @@
-const start = require("./src/components/application");
+const start = require("./src/components/App");
 
-start()
+start();
