@@ -1,5 +1,5 @@
-const input = require('./Input');
-const Canvas = require('./Canvas');
+const input = require("./Input");
+const Canvas = require("./Canvas");
 
 const start = async () => {
   // const text = await input("enter hi here:\n")
@@ -7,6 +7,9 @@ const start = async () => {
 
   const canvas = new Canvas();
   canvas.initialise();
+  canvas.draw();
+
+  canvas.clear();
 };
 
 module.exports = start;
