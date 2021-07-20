@@ -1,26 +1,26 @@
-const input = require('./Input');
+const input = require("./Input");
 
 class Canvas {
-  constructor() {
-    this.width = 0;
-    this.height = 0;
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
     this.board = [];
   }
 
   getCellValue(rowIndex, colIndex, w, h) {
     return rowIndex === 0 || rowIndex === h - 1
-      ? '-'
+      ? "-"
       : colIndex === 0 || colIndex === w - 1
-      ? '|'
-      : ' ';
+      ? "|"
+      : " ";
   }
 
-  createBoard = (w, h) => {
-    if (!w || !h) return;
-    if (typeof w !== 'number' || typeof h !== 'number') return;
+  createBoard () {
+    // if (!this.width || !h) return;
+    // if (typeof w !== "number" || typeof h !== "number") return;
 
-    const borderedWidth = w + 2;
-    const borderedHeight = h + 2;
+    const borderedWidth = this.width + 2;
+    const borderedHeight = this.height + 2;
 
     this.board = new Array(borderedHeight)
       .fill(null)
@@ -35,34 +35,29 @@ class Canvas {
 
   draw() {
     this.board.forEach((row) => {
-      let renderRow = '';
+      let renderRow = "";
       row.forEach((cell) => {
         renderRow += cell;
       });
       console.log(renderRow);
     });
   }
-
-  async initialise() {
     // const size = await input(
     //   'Welcome, please enter size to create your canvas: '
     // );
-    const size = 'C 20 4';
-    console.log('\n');
+    // const size = "C 20 4";
+    // console.log("\n");
 
-    const [commandType, width, height] = (size && size.split(' ')) || [];
+    // const [commandType, width, height] = (size && size.split(" ")) || [];
 
-    if (commandType !== 'C' || !width || !height) {
-      // TODO: validate number
-      console.log("Please enter size of canvas in format 'C width height'\n");
-      this.initialise();
-    }
+    // if (commandType !== "C" || !width || !height) {
+    //   // TODO: validate number
+    //   console.log("Please enter size of canvas in format 'C width height'\n");
+    //   return;
+    // }
 
-    this.width = width;
-    this.height = height;
-
-    this.createBoard(Number(width), Number(height));
-  }
+    // this.width = width;
+    // this.height = height;
 
   // Leave old canvas data eligible for garbage collection
   clear() {
@@ -88,23 +83,23 @@ class Canvas {
     // y2 = parseInt(y2);
     if (y1 === y2) {
       for (let i = x1; i <= x2; i++) {
-        this.board[y1][i] = 'x';
+        this.board[y1][i] = "x";
       }
     } else {
       for (let i = y1; i <= y2; i++) {
-        this.board[i][x1] = 'x';
+        this.board[i][x1] = "x";
       }
     }
   }
 
   rectangle(x1, y1, x2, y2) {
     for (let i = x1; i <= x2; i++) {
-      this.board[y1][i] = 'x';
-      this.board[y2][i] = 'x';
+      this.board[y1][i] = "x";
+      this.board[y2][i] = "x";
     }
     for (let i = y1; i <= y2; i++) {
-      this.board[i][x1] = 'x';
-      this.board[i][x2] = 'x';
+      this.board[i][x1] = "x";
+      this.board[i][x2] = "x";
     }
   }
 
