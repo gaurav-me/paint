@@ -1,11 +1,13 @@
 const { parseInts, isValidNumber } = require('./utils');
 const { CREATE, LINE, RECTANGLE, FILL, QUIT } = require('./constants');
-const input = require('../components/Input');
+const Input = require('../components/Input');
 const Line = require('../components/Line');
 const Rectangle = require('../components/Rectangle');
 
+const input = new Input();
+
 const getValidatedCanvasSize = async (msg) => {
-  const command = await input(msg);
+  const command = await input.ask(msg);
   let [commandType, width, height] = (command && command.split(' ')) || [];
 
   if (commandType === QUIT) return { meta: { commandType, quit: true } };
@@ -21,7 +23,7 @@ const getValidatedCanvasSize = async (msg) => {
 };
 
 const getValidatedCommand = async (msg, canvas) => {
-  const command = await input(msg);
+  const command = await input.ask(msg);
   const [commandType, arg1, arg2, arg3, arg4] =
     (command && command.split(' ')) || [];
 
@@ -41,7 +43,14 @@ const getValidatedCommand = async (msg, canvas) => {
       return { figure: rectangle, meta: { quit: false, commandType } };
   }
   if (commandType === FILL) {
-    if (isValidNumber(x1) && isValidNumber(y1) && arg3)
+    if (
+      isValidNumber(x1) &&
+      isValidNumber(y1) &&
+      arg3 &&
+      arg3.length === 1 &&
+      x1 <= canvas.width &&
+      y1 <= canvas.height
+    )
       return {
         figure: { x: x1, y: y1, c: arg3 },
         meta: { quit: false, commandType },

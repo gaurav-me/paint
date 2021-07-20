@@ -42,12 +42,19 @@ class Canvas {
 
   line(line) {
     const { x1, y1, x2, y2 } = line || {};
+
     if (y1 === y2) {
-      for (let i = x1; i <= x2; i++) {
+      const smallerX = x1 > x2 ? x2 : x1;
+      const largerX = x1 > x2 ? x1 : x2;
+
+      for (let i = smallerX; i <= largerX; i++) {
         this.board[y1][i] = DEFAULT_FILL;
       }
     } else {
-      for (let i = y1; i <= y2; i++) {
+      const smallerY = y1 > y2 ? y2 : y1;
+      const largerY = y1 > y2 ? y1 : y2;
+
+      for (let i = smallerY; i <= largerY; i++) {
         this.board[i][x1] = DEFAULT_FILL;
       }
     }
@@ -55,11 +62,16 @@ class Canvas {
 
   rectangle(rectangle) {
     const { x1, y1, x2, y2 } = rectangle || {};
-    for (let i = x1; i <= x2; i++) {
+    const smallerX = x1 > x2 ? x2 : x1;
+    const largerX = x1 > x2 ? x1 : x2;
+    const smallerY = y1 > y2 ? y2 : y1;
+    const largerY = y1 > y2 ? y1 : y2;
+
+    for (let i = smallerX; i <= largerX; i++) {
       this.board[y1][i] = DEFAULT_FILL;
       this.board[y2][i] = DEFAULT_FILL;
     }
-    for (let i = y1; i <= y2; i++) {
+    for (let i = smallerY; i <= largerY; i++) {
       this.board[i][x1] = DEFAULT_FILL;
       this.board[i][x2] = DEFAULT_FILL;
     }

@@ -1,17 +1,19 @@
-const readline = require("readline");
+const readline = require('readline');
 
-const input = (query) => {
+class Input {
+  ask(query) {
     const rl = readline.createInterface({
       input: process.stdin,
-      output: process.stdout
+      output: process.stdout,
     });
 
-    return new Promise(resolve =>
-      rl.question(query, ans => {
+    return new Promise((resolve) =>
+      rl.question(query, (ans) => {
         rl.close();
         resolve(ans);
       })
     );
+  }
 }
 
-module.exports = input;
+module.exports = Input;
