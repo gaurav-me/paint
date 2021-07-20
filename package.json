@@ -1,7 +1,7 @@
 {
   "name": "paint-app",
   "version": "0.0.1",
-  "description": "Credit Suisse paint app exercise",
+  "description": "Credit Suisse paint app exercise by Gaurav Sharma",
   "main": "./src/components/App.js",
   "scripts": {
     "app": "node index.js",

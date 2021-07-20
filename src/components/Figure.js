@@ -21,9 +21,9 @@ class Figure {
     ) {
       return { success: false, msg: 'Coordinates not valid' };
     } else if (this.x1 > this.maxWidth || this.x2 > this.maxWidth) {
-      return { success: false, msg: 'Line width is beyond canvas size' };
+      return { success: false, msg: 'Figure width is beyond canvas size' };
     } else if (this.y1 > this.maxHeight || this.y2 > this.maxHeight) {
-      return { success: false, msg: 'Line height is beyond canvas size' };
+      return { success: false, msg: 'Figure height is beyond canvas size' };
     }
     return { success: true };
   }

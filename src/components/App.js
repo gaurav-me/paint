@@ -1,4 +1,8 @@
 const { printMessage, printNewLine } = require('../common/utils');
+const {
+  getValidatedCommand,
+  getValidatedCanvasSize,
+} = require('../common/validatedInputs');
 const { LINE, RECTANGLE, FILL } = require('../common/constants');
 const Canvas = require('./Canvas');
 
