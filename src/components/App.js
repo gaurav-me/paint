@@ -1,68 +1,114 @@
-const input = require("./Input");
-const Canvas = require("./Canvas");
+const input = require('./Input');
+const { isValidNumber } = require('../common/utils');
+const { CREATE, LINE, RECTANGLE, FILL, QUIT } = require('../common/constants');
+const Canvas = require('./Canvas');
+const Line = require('./Line');
+const Rectangle = require('./Rectangle');
 
-const isValidNumber = (arg) => (arg && arg > 0)
-
-const getValidatedCommand = async ({ msg, requiredCommand = "" }) => {
+const getValidatedSize = async (msg) => {
   const command = await input(msg);
-  const [commandType, arg1, arg2, arg3, arg4] = (command && command.split(" ")) || [];
-  if (
-    (requiredCommand && commandType !== requiredCommand) || command.length > 3 || !isValidNumber(arg1) || !isValidNumber(arg2) || !isValidNumber(arg3) || !isValidNumber(arg4)
-  )
-    getValidatedCommand("Incorrect command format. Please try again: ");
 
-  return [commandType, arg1, arg2];
+  let [commandType, width, height] = (command && command.split(' ')) || [];
+
+  if (commandType === QUIT) return { meta: { commandType, quit: true } };
+
+  width = parseInt(width);
+  height = parseInt(height);
+
+  if (commandType === CREATE && isValidNumber(width) && isValidNumber(height)) {
+    return { meta: { commandType, quit: false }, width, height };
+  }
+
+  return await getValidatedSize(
+    'Invalid command, please enter command in format C width height: '
+  );
+};
+
+const getValidatedCommand = async (msg, canvas) => {
+  const command = await input(msg);
+
+  const [commandType, arg1, arg2, arg3, arg4] =
+    (command && command.split(' ')) || [];
+
+  if (commandType === QUIT) return { meta: { quit: true, commandType } };
+
+  const x1 = parseInt(arg1);
+  const y1 = parseInt(arg2);
+  const x2 = parseInt(arg3);
+  const y2 = parseInt(arg4);
+
+  if (commandType === LINE) {
+    const line = new Line(canvas, x1, y1, x2, y2);
+    const validation = line.validate();
+    if (validation.success)
+      return { figure: line, meta: { quit: false, commandType } };
+  }
+  if (commandType === RECTANGLE) {
+    const rectangle = new Rectangle(canvas, x1, y1, x2, y2);
+    const validation = rectangle.validate();
+    if (validation.success)
+      return { figure: rectangle, meta: { quit: false, commandType } };
+  }
+  if (commandType === FILL) {
+    if (isValidNumber(x1) && isValidNumber(y1) && arg3)
+      return {
+        figure: { x: x1, y: y1, c: arg3 },
+        meta: { quit: false, commandType },
+      };
+  }
+
+  return await getValidatedCommand(
+    'Invalid command, please try again: ',
+    canvas
+  );
 };
 
 const start = async () => {
-  console.log("Program started.");
-  const [width, height] = await getValidatedCommand(
-    {msg: "Please enter canvas dimensions to begin.", requiredCommand: "C"}
-  );
+  console.log('Program started.');
 
-  console.log("\n");
+  const { meta, width, height } = await getValidatedSize(
+    "Please enter dimensions of the canvas in the format 'C width height': "
+  );
+  if (meta.quit) {
+    console.log('Program ended');
+    return;
+  }
+
+  console.log('\n');
 
   const canvas = new Canvas(width, height);
   canvas.createBoard();
+  console.log('Board created');
+  canvas.draw();
 
-  console.log("\n");
+  console.log('\n');
 
-  let active = true;
-  while (active) {
-    const [commandType, ...args] = await getValidatedCommand({
-      requiredCommand: "C",
-      msg: "Enter command: ",
-    });
+  while (true) {
+    const {
+      meta: { quit, commandType },
+      figure,
+    } = await getValidatedCommand('Ready for next command: ', canvas);
 
-    const isCommandAcceptable = findError({commandType })
+    if (quit) break;
 
     switch (commandType) {
-      case "L":
-        canvas.line(...args);
+      case LINE:
+        canvas.line(figure);
         canvas.draw();
         break;
-      case "R":
-        canvas.rectangle(...args);
+      case RECTANGLE:
+        canvas.rectangle(figure);
         canvas.draw();
         break;
-      case "F":
-        canvas.fill(...args);
+      case FILL:
+        canvas.fill(figure);
         canvas.draw();
-        break;
-      case "Q":
-        active = false;
         break;
     }
   }
 
-  // canvas.line(1, 2, 6, 2);
-  // canvas.line(6, 3, 6, 4);
-  // canvas.rectangle(14, 1, 18, 3);
-  // canvas.fill(10, 3, "o");
-  // canvas.draw();
-
   canvas.clear();
-  console.log("Program ended");
+  console.log('Program ended');
 
   return;
 };

@@ -1,5 +1,3 @@
-const input = require("./Input");
-
 class Canvas {
   constructor(width, height) {
     this.width = width;
@@ -9,16 +7,13 @@ class Canvas {
 
   getCellValue(rowIndex, colIndex, w, h) {
     return rowIndex === 0 || rowIndex === h - 1
-      ? "-"
+      ? '-'
       : colIndex === 0 || colIndex === w - 1
-      ? "|"
-      : " ";
+      ? '|'
+      : ' ';
   }
 
-  createBoard () {
-    // if (!this.width || !h) return;
-    // if (typeof w !== "number" || typeof h !== "number") return;
-
+  createBoard() {
     const borderedWidth = this.width + 2;
     const borderedHeight = this.height + 2;
 
@@ -31,75 +26,46 @@ class Canvas {
             this.getCellValue(rowIndex, colIndex, borderedWidth, borderedHeight)
           )
       );
-  };
+  }
 
   draw() {
+    console.log('this.board', this.board);
     this.board.forEach((row) => {
-      let renderRow = "";
+      let renderRow = '';
       row.forEach((cell) => {
         renderRow += cell;
       });
       console.log(renderRow);
     });
   }
-    // const size = await input(
-    //   'Welcome, please enter size to create your canvas: '
-    // );
-    // const size = "C 20 4";
-    // console.log("\n");
 
-    // const [commandType, width, height] = (size && size.split(" ")) || [];
-
-    // if (commandType !== "C" || !width || !height) {
-    //   // TODO: validate number
-    //   console.log("Please enter size of canvas in format 'C width height'\n");
-    //   return;
-    // }
-
-    // this.width = width;
-    // this.height = height;
-
-  // Leave old canvas data eligible for garbage collection
+  // Make old canvas data eligible for garbage collection
   clear() {
     this.board = [];
   }
 
-  line(x1, y1, x2, y2) {
-    // const size = 'L 1 2 6 2';
-    // let [commandType, x1, y1, x2, y2] = (size && size.split(' ')) || [];
-
-    // if (commandType !== 'L' || !x1 || !y1 || !x2 || !y2) {
-    //   // TODO: validate number
-    //   console.log(
-    //     "Please enter dimensions of line in format 'C width height'\n"
-    //   );
-    //   return;
-    // }
-
-    // TODO: sort to find min number, instantiate a validation class here
-    // x1 = parseInt(x1);
-    // x2 = parseInt(x2);
-    // y1 = parseInt(y1);
-    // y2 = parseInt(y2);
+  line(line) {
+    const { x1, y1, x2, y2 } = line || {};
     if (y1 === y2) {
       for (let i = x1; i <= x2; i++) {
-        this.board[y1][i] = "x";
+        this.board[y1][i] = 'x';
       }
     } else {
       for (let i = y1; i <= y2; i++) {
-        this.board[i][x1] = "x";
+        this.board[i][x1] = 'x';
       }
     }
   }
 
-  rectangle(x1, y1, x2, y2) {
+  rectangle(rectangle) {
+    const { x1, y1, x2, y2 } = rectangle || {};
     for (let i = x1; i <= x2; i++) {
-      this.board[y1][i] = "x";
-      this.board[y2][i] = "x";
+      this.board[y1][i] = 'x';
+      this.board[y2][i] = 'x';
     }
     for (let i = y1; i <= y2; i++) {
-      this.board[i][x1] = "x";
-      this.board[i][x2] = "x";
+      this.board[i][x1] = 'x';
+      this.board[i][x2] = 'x';
     }
   }
 
@@ -122,7 +88,7 @@ class Canvas {
     this.floodFill(x, y - 1, newColour, oldColour);
   }
 
-  fill(x, y, newColour) {
+  fill({ x, y, c: newColour }) {
     const oldColour = this.board[y][x];
     this.floodFill(x, y, newColour, oldColour);
   }
