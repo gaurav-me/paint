@@ -1,3 +1,5 @@
+const { DEFAULT_FILL } = require('../common/constants');
+
 class Canvas {
   constructor(width, height) {
     this.width = width;
@@ -28,8 +30,7 @@ class Canvas {
       );
   }
 
-  draw() {
-    console.log('this.board', this.board);
+  render() {
     this.board.forEach((row) => {
       let renderRow = '';
       row.forEach((cell) => {
@@ -39,20 +40,15 @@ class Canvas {
     });
   }
 
-  // Make old canvas data eligible for garbage collection
-  clear() {
-    this.board = [];
-  }
-
   line(line) {
     const { x1, y1, x2, y2 } = line || {};
     if (y1 === y2) {
       for (let i = x1; i <= x2; i++) {
-        this.board[y1][i] = 'x';
+        this.board[y1][i] = DEFAULT_FILL;
       }
     } else {
       for (let i = y1; i <= y2; i++) {
-        this.board[i][x1] = 'x';
+        this.board[i][x1] = DEFAULT_FILL;
       }
     }
   }
@@ -60,12 +56,12 @@ class Canvas {
   rectangle(rectangle) {
     const { x1, y1, x2, y2 } = rectangle || {};
     for (let i = x1; i <= x2; i++) {
-      this.board[y1][i] = 'x';
-      this.board[y2][i] = 'x';
+      this.board[y1][i] = DEFAULT_FILL;
+      this.board[y2][i] = DEFAULT_FILL;
     }
     for (let i = y1; i <= y2; i++) {
-      this.board[i][x1] = 'x';
-      this.board[i][x2] = 'x';
+      this.board[i][x1] = DEFAULT_FILL;
+      this.board[i][x2] = DEFAULT_FILL;
     }
   }
 
@@ -91,6 +87,11 @@ class Canvas {
   fill({ x, y, c: newColour }) {
     const oldColour = this.board[y][x];
     this.floodFill(x, y, newColour, oldColour);
+  }
+
+  // Make old canvas data eligible for garbage collection
+  clear() {
+    this.board = [];
   }
 }
 

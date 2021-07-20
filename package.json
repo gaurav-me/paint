@@ -4,7 +4,7 @@
   "description": "Credit Suisse paint app exercise",
   "main": "./src/components/App.js",
   "scripts": {
-    "game": "node index.js",
+    "app": "node index.js",
     "test": "jest --watch",
     "test:All": "jest --watchAll"
   },
