@@ -1,4 +1,4 @@
-# paint
+# Drawing Program
 
 Written by Gaurav Sharma for Credit Suisse Application.
 ## Requirements
