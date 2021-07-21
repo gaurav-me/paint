@@ -13,7 +13,7 @@ Written by Gaurav Sharma for Credit Suisse application exercise.
 - Execute the following command to run the application:
   > npm run app
 - Execute the following command to run unit tests:
-  > npm test
+  > npm run test:All
 
 ## Assumptions
 
