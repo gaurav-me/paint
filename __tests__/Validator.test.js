@@ -5,6 +5,7 @@ const {
 const Input = require('../src/components/Input');
 const Line = require('../src/components/Line');
 const Rectangle = require('../src/components/Rectangle');
+const Fill = require('../src/components/Fill');
 
 describe('Tests the input validators correctly catch invalid input for different kinds of user input', () => {
   beforeEach(() => {
@@ -124,8 +125,9 @@ describe('Tests the input validators correctly catch invalid input for different
       'Ready for next command: ',
       canvas
     );
-    expect(figure.x).toBe(1);
-    expect(figure.y).toBe(3);
+    expect(figure).toBeInstanceOf(Fill);
+    expect(figure.x1).toBe(1);
+    expect(figure.y1).toBe(3);
     expect(figure.c).toBe('o');
     expect(meta.commandType).toBe('B');
     expect(meta.quit).toBeFalsy();
@@ -141,8 +143,9 @@ describe('Tests the input validators correctly catch invalid input for different
       'Ready for next command: ',
       canvas
     );
-    expect(figure.x).toBe(1);
-    expect(figure.y).toBe(3);
+    expect(figure).toBeInstanceOf(Fill);
+    expect(figure.x1).toBe(1);
+    expect(figure.y1).toBe(3);
     expect(figure.c).toBe('o');
     expect(meta.commandType).toBe('B');
     expect(meta.quit).toBeFalsy();

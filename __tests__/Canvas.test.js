@@ -96,7 +96,7 @@ describe('Tests whether the Game class correctly identifies different game scena
     canvas.rectangle({ x1: 3, y1: 4, x2: 1, y2: 2 });
 
     const fill = {
-      figure: { x: 4, y: 1, c: 'o' },
+      figure: { x1: 4, y1: 1, c: 'o' },
       meta: { quit: false, commandType: 'B' },
     };
     canvas.fill(fill.figure);
@@ -116,7 +116,7 @@ describe('Tests whether the Game class correctly identifies different game scena
     canvas.rectangle({ x1: 1, y1: 1, x2: 5, y2: 3 });
 
     const fill = {
-      figure: { x: 5, y: 4, c: 'a' },
+      figure: { x1: 5, y1: 4, c: 'a' },
       meta: { quit: false, commandType: 'B' },
     };
     canvas.fill(fill.figure);
@@ -136,7 +136,7 @@ describe('Tests whether the Game class correctly identifies different game scena
     canvas.rectangle({ x1: 1, y1: 1, x2: 5, y2: 3 });
 
     const fill = {
-      figure: { x: 2, y: 2, c: 'o' },
+      figure: { x1: 2, y1: 2, c: 'o' },
       meta: { quit: false, commandType: 'B' },
     };
     canvas.fill(fill.figure);
@@ -156,7 +156,7 @@ describe('Tests whether the Game class correctly identifies different game scena
     canvas.rectangle({ x1: 1, y1: 1, x2: 5, y2: 3 });
 
     const fill = {
-      figure: { x: 1, y: 1, c: 'o' },
+      figure: { x1: 1, y1: 1, c: 'o' },
       meta: { quit: false, commandType: 'B' },
     };
     canvas.fill(fill.figure);
@@ -176,7 +176,7 @@ describe('Tests whether the Game class correctly identifies different game scena
     canvas.rectangle({ x1: 1, y1: 1, x2: 5, y2: 3 });
 
     const fill = {
-      figure: { x: 1, y: 1, c: 'o' },
+      figure: { x1: 1, y1: 1, c: 'o' },
       meta: { quit: false, commandType: 'B' },
     };
     canvas.fill(fill.figure);
@@ -191,7 +191,7 @@ describe('Tests whether the Game class correctly identifies different game scena
     canvas.rectangle({ x1: 1, y1: 1, x2: 5, y2: 3 });
 
     const fill = {
-      figure: { x: 1, y: 1, c: 'o' },
+      figure: { x1: 1, y1: 1, c: 'o' },
       meta: { quit: false, commandType: 'B' },
     };
     canvas.fill(fill.figure);

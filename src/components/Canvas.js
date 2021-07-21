@@ -96,7 +96,8 @@ class Canvas {
     this.floodFill(x, y - 1, newColour, oldColour);
   }
 
-  fill({ x, y, c: newColour }) {
+  fill(fill) {
+    const { x1: x, y1: y, c: newColour } = fill || {};
     const oldColour = this.board[y][x];
     this.floodFill(x, y, newColour, oldColour);
   }
