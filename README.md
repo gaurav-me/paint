@@ -1,6 +1,6 @@
 # Drawing Program
 
-Written by Gaurav Sharma for Credit Suisse Software Engineering exercise.
+Written by Gaurav Sharma for Credit Suisse application exercise.
 
 ## Requirements
 
