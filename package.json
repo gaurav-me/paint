@@ -4,7 +4,7 @@
   "description": "Credit Suisse paint app exercise by Gaurav Sharma",
   "main": "./src/components/App.js",
   "scripts": {
-    "app": "node index.js",
+    "start": "node index.js",
     "test": "jest --watch",
     "test:All": "jest --watchAll"
   },
